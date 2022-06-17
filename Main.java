@@ -34,15 +34,14 @@ public class Main {
             }
             System.out.println();
         }
+        
+        
         System.out.println("\nПосле:");
-
-
         Sort(Array);
         for (int[] ints : Array) {
             for (int j = 0; j < Array.length; j++) {
                 System.out.print(ints[j] + " ");
             }
-            System.out.println();
         }
     }
 }
