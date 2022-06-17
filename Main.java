@@ -1,74 +1,48 @@
+//14. Написать программу, сортирующую строки двумерного массива цифр по возрастанию
 package com.company;
-
-
+import java.util.Random;
 
 public class Main {
-    public static void Sort(int[] collection) {
-        if (collection != null) {
-            quickSort(collection, 0, collection.length-1);
-        } else {
-            throw new IllegalArgumentException("Input paramenter for array to sort is null.");
-        }
-    }
-
-    private static void quickSort(int[] collection, int firstPosition, int lastPosition) {
-        if (firstPosition >= lastPosition) {
-            return;
-        } else {
-            int pivotIndex = partition(collection, firstPosition, lastPosition);
-            quickSort(collection, firstPosition, pivotIndex-1);
-            quickSort(collection, pivotIndex+1, lastPosition);
-        }
-    }
-
-    private static int partition(int[] collection, int firstPosition, int lastPosition) {
-        int pivotIndex = selectPivot(firstPosition, lastPosition);
-        swap (collection, pivotIndex, lastPosition);
-        int store = firstPosition;
-        pivotIndex = lastPosition;
-        for (int i = firstPosition; i <= lastPosition-1 ; i++) {
-            if (collection[i] <= collection[pivotIndex]) {
-                swap (collection, i, store);
-                store++;
+    public static void Sort(int[][] arr) {             // Сортировка
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length; j++) {
+                for (int k = j + 1; k < arr.length; k++) {
+                    if (arr[i][j] > arr[i][k]) {
+                        int b = arr[i][j];
+                        arr[i][j] = arr[i][k];
+                        arr[i][k] = b;
+                    }
+                }
             }
         }
-        swap (collection, store, pivotIndex);
-        pivotIndex = store;
-        return pivotIndex;
-    }
-
-    private static void swap(int[] collection, int x, int y) {
-        int temp = collection[x];
-        collection[x] = collection[y];
-        collection[y] = temp;
-    }
-
-    private static int selectPivot(int first, int last) {
-        return (first+last)/2;
-    }
-
-    public static void MassiveOut(int[][] myArray)
-    {
-        for (int i = 0; i<myArray.length; i++){
-            for (int j = 0; j<myArray[1].length; j++){
-                System.out.print(myArray[i][j]+" ");
-            }
-            System.out.println();
-        }
-        System.out.println();
     }
 
     public static void main(String[] args) {
-        int[][] myArray = new int[5][10];
-        for (int i =0; i<myArray.length; i++){
-            for (int j =0; j<myArray[1].length; j++){
-                myArray[i][j]=(int)(10*Math.random());
+        Random rand = new Random();
+        int size = rand.nextInt(2, 5);
+        int[][] Array = new int[size][size];            // Генерация двумерного массива и заполнение его рандомными числами
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                Array[i][j] = rand.nextInt(10);
+
             }
         }
-        MassiveOut(myArray);
-        for (int i =0; i<myArray.length; i++) {
-            Sort(myArray[i]);
+
+        for (int[] ints : Array) {
+            for (int j = 0; j < Array.length; j++) {
+                System.out.print(ints[j] + " ");
+            }
+            System.out.println();
         }
-        MassiveOut(myArray);
+        System.out.println("\nПосле:");
+
+
+        Sort(Array);
+        for (int[] ints : Array) {
+            for (int j = 0; j < Array.length; j++) {
+                System.out.print(ints[j] + " ");
+            }
+            System.out.println();
+        }
     }
 }
